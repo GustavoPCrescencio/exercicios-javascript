@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Imagens</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            max-width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <button id="botao-filtro-mostrar-tudo">Mostrar Tudo</button>
+        <button id="botao-filtro-animais">Animais</button>
+        <button id="botao-filtro-cidade">Cidade</button>
+        <button id="botao-filtro-natureza">Natureza</button>
+        
+        <ul id="lista"></ul>
+    </div>
+        
+        <script>
+            const galeria = [
+                {
+                    id: 1,
+                    url: 'https://cdn.pixabay.com/photo/2025/10/26/13/00/ai-generated-9917901_1280.png',
+                categoria: 'animais'
+            },
+            {
+                id: 2,
+                url: 'https://cdn.pixabay.com/photo/2022/08/19/12/46/landscape-7396852_1280.jpg',
+                categoria: 'natureza'
+            },
+            {
+                id: 3,
+                url: 'https://cdn.pixabay.com/photo/2025/11/24/11/00/burano-9973925_1280.jpg',
+                categoria: 'natureza'
+            }
+        ]
+
+        const botaoFiltroMostrarTudo = document.querySelector('#botao-filtro-mostrar-tudo')
+        const botaoFiltroAnimais = document.querySelector('#botao-filtro-animais')
+        const botaoFiltroNatureza = document.querySelector('#botao-filtro-natureza')
+        const botaoFiltroCidade = document.querySelector('#botao-filtro-cidade')
+
+        const lista = document.querySelector('#lista')
+
+        botaoFiltroMostrarTudo.addEventListener('click', () => {
+            lista.innerHTML = ''
+            
+            const galeriaAnimais = galeria
+            .map(({ url }) => {
+                const novaImagem = document.createElement('img')
+                novaImagem.src = url
+                
+                lista.appendChild(novaImagem)
+            })
+        })
+        
+        botaoFiltroAnimais.addEventListener('click', () => {
+            lista.innerHTML = ''
+            
+            const galeriaAnimais = galeria
+            .filter(({ categoria }) => categoria === 'animais')
+            .map(({ url }) => {
+                const novaImagem = document.createElement('img')
+                novaImagem.src = url
+                lista.appendChild(novaImagem)
+            })
+        })
+        
+        botaoFiltroNatureza.addEventListener('click', () => {
+            lista.innerHTML = ''
+            
+            const galeriaAnimais = galeria
+            .filter(({ categoria }) => categoria === 'natureza')
+            .map(({ url }) => {
+                const novaImagem = document.createElement('img')
+                novaImagem.src = url
+                lista.appendChild(novaImagem)
+            })
+        })
+        
+        botaoFiltroCidade.addEventListener('click', () => {
+            lista.innerHTML = ''
+            
+            const galeriaAnimais = galeria
+                .filter(({ categoria }) => categoria === 'cidade')
+                .map(({ url }) => {
+                    const novaImagem = document.createElement('img')
+                    novaImagem.src = url
+                    lista.appendChild(novaImagem)
+                })
+        })
+
+    </script>
+</body>
+
+</html>
