@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendendo JavaScript</title>
+</head>
+
+<body>
+    <h1>Contador</h1>
+    <p>Cliques: <span id="contador-display">0</span></p>
+    <button id="botao-clicar">Clique Aqui</button>
+
+    <script>
+        const botaoClicar = document.getElementById('botao-clicar')
+        const contadorDisplay = document.querySelector('#contador-display')
+
+        botaoClicar.addEventListener('click', () => {
+            let valorAtual = parseInt(contadorDisplay.textContent)
+            valorAtual++
+            contadorDisplay.textContent = valorAtual
+        })
+    </script>
+</body>
+
+</html>

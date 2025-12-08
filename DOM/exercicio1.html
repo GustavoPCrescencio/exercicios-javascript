@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 1</title>
+    <style>
+        .sucesso {
+            color: rgb(72, 238, 72);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="titulo">Carregando...</h1>
+    <p class="paragrafo-status">Status: Offline</p>
+    <script>
+        const titulo = document.querySelector('.titulo')
+        const paragrafoStatus = document.querySelector('.paragrafo-status')
+
+        titulo.textContent = 'Bem-vindo ao Sistema!'
+        paragrafoStatus.textContent = 'Status: Online'
+
+        paragrafoStatus.classList.add('sucesso')
+    </script>
+</body>
+</html>

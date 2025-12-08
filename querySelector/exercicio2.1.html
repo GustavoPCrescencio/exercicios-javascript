@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercício 2 Bis</title>
+    <style>
+        .container {
+            border: 2px solid #ccc;
+            padding: 20px;
+            width: 300px;
+            margin: 20px auto;
+        }
+        .erro {
+            color: red;
+            font-weight: bold;
+            display: none; /* Começa escondida */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro Simples</h2>
+        <input type="text" id="nome-usuario" placeholder="Digite seu nome">
+        <p class="erro" id="alerta-erro">O campo não pode estar vazio!</p>
+        <button id="botao-salvar">Salvar</button>
+    </div>
+
+    <script>
+        const nomeUsuario = document.getElementById('nome-usuario')
+        const mensagemErro = document.getElementById('alerta-erro')
+        const botaoSalvar = document.getElementById('botao-salvar')
+
+        const verificarCampoUsuario = () => {
+            const vNomeUsuario = nomeUsuario.value
+    
+            mensagemErro.style.display = vNomeUsuario === "" ? 'block' : 'none'
+        }
+
+        botaoSalvar.addEventListener('click', verificarCampoUsuario)
+    </script>
+</body>
+</html>

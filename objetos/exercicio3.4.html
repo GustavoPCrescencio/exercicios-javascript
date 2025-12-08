@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><title>Exercício 3.4</title></head>
+<body>
+    <script>
+        const inventario = [
+            { id: 101, nome: "Chave de Fenda", setor: "Ferramentas", preco: 15.50, quantidade: 40 },
+            { id: 102, nome: "Martelo Compacto", setor: "Ferramentas", preco: 45.00, quantidade: 10 },
+            { id: 103, nome: "Luva de Couro", setor: "Segurança", preco: 22.00, quantidade: 75 },
+            { id: 104, nome: "Capacete", setor: "Segurança", preco: 88.90, quantidade: 5 },
+            { id: 105, nome: "Serra Circular", setor: "Ferramentas", preco: 150.00, quantidade: 3 }
+        ];
+        
+        // Eles sempre retornam objetos
+
+        const produtos = inventario.filter(({ setor }) => setor === 'Ferramentas')
+
+        const produtoMaisCaro = produtos
+                                    .reduce((maiorPreco, precoAtual) => {
+                                        if(maiorPreco.preco > precoAtual.preco) {
+                                            return maiorPreco
+                                        } else {
+                                            return precoAtual
+                                        }
+                                    }, produtos[0])
+                                    
+        const somaProdutos = produtos
+                                        .map(({ preco }) => preco)
+                                        .reduce((somaPrecos, precoAtual) => somaPrecos = (somaPrecos + precoAtual), 0)
+
+        const mediaPrecoFerramentas = somaProdutos / produtos.length
+
+        console.log(`O produto mais caro em Ferramentas é: ${produtoMaisCaro.nome} (R$ ${produtoMaisCaro.preco})`);
+        console.log(`Valor médio das Ferramentas: R$ ${mediaPrecoFerramentas.toFixed(2)}`);
+    </script>
+</body>
+</html>

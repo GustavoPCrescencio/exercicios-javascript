@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 2</title>
+    <style>
+        .lampada {
+            width: 100px;
+            height: 100px;
+            background-color: gray;
+            border-radius:  50%;
+        }
+
+        .ligada {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-interruptor">Ligar</button>
+    <div class="lampada"></div>
+
+    <script>
+        const botaoInterruptor = document.querySelector('.btn-interruptor')
+        const lampada = document.querySelector('.lampada')
+
+        botaoInterruptor.addEventListener('click', () => {
+            lampada.classList.toggle('ligada')
+
+            if(lampada.classList.contains('ligada')) {
+                botaoInterruptor.textContent = 'Desligar'
+            } else {
+                botaoInterruptor.textContent = 'Ligar'
+            }
+        })
+    </script>
+</body>
+</html>

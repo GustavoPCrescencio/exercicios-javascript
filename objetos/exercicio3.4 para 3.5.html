@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><title>Exercício 3.5</title></head>
+<body>
+    <script>
+        const arrayUm = [10, 5, 20, 3, 12]
+        const arrayDois = [15, 8, 25, 4, 18]
+        const arrayTres = [2, 4, 8, 16]
+
+        // Exercicio 1
+
+        const calcularSoma = arrayUm.reduce((somaValores, valores) => {
+            return somaValores += valores
+        }, 0)
+        
+        const encontrarMaiorNumero = arrayDois.reduce((maiorNumero, numeroAtual) => {
+            if(maiorNumero > numeroAtual) {
+                return maiorNumero
+            } else {
+                return numeroAtual
+            }
+        }, arrayDois[0])
+        
+        const calcularProduto = arrayTres.reduce((numerosMultiplicados, numeroAtual) => {
+            return numerosMultiplicados *= numeroAtual
+        })
+
+        // Exercicio 2
+
+        const arrayQuatro = [{v:10}, {v:5}, {v:20}]
+        const arrayCinco = [{p:100, qtd:2}, {p:50, qtd:3}]
+        const arraySeis = [{n:5}, {n:10}, {n:2}]
+
+        const calcularV = arrayQuatro.reduce((somaV, { v }) => {
+            return somaV + v
+        }, 0)
+
+        const calcularPrecoPorQuantidade = arrayCinco.reduce((valorTotal, produto) => {
+            return valorTotal += produto.p * produto.qtd
+        }, 0)
+
+        const encontrarMenorPropriedade = arraySeis.reduce((menorPropriedade, propriedadeAtual) => {
+            if(menorPropriedade.n < propriedadeAtual.n) {
+                return menorPropriedade
+            } else {
+                return propriedadeAtual
+            }
+        }, arraySeis[0]) 
+
+        const cores = ['vermelho', 'azul', 'vermelho', 'verde']
+        const ids = [10, 20, 30]
+
+        const validarCores = cores.reduce((acc, corAtual) => {
+            acc[corAtual] = true
+
+            return acc
+        }, {})
+
+        const idsMultiplicadosPorDois = ids.reduce((acc, idAtual) => {
+            acc[idAtual] = idAtual * 2
+            return acc
+        }, {})
+
+        const frutas = ['maçã', 'banana', 'maçã', 'laranja', 'banana']
+        const itens = [{tipo:'A', v:5}, {tipo:'B', v:10}, {tipo:'A', v:15}]
+
+        const contarQntsXFrutasAparecem = frutas.reduce((acc, frutaAtual) => {
+            if(acc[frutaAtual]) {
+                acc[frutaAtual] = acc[frutaAtual] + 1
+            } else {
+                acc[frutaAtual] = 1
+            }
+            return acc
+        }, {})
+
+        const agruparPorTipoESomarV = itens.reduce((acc, item) => {
+            if(acc[item.tipo]) {
+                acc[item.tipo] = acc[item.tipo] + item.v
+            } else {
+                acc[item.tipo] = item.v
+            }
+
+            return acc
+        }, {})
+
+        console.log(contarQntsXFrutasAparecem)
+        console.log(agruparPorTipoESomarV)
+
+    </script>
+</body>
+</html>

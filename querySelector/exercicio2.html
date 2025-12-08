@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form-login">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email">
+        </div>
+        <div>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha">
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <script>
+        const form = document.querySelector('#form-login')
+        const email = document.querySelector('#email')
+        const senha = document.querySelector('#senha')
+
+        const lidarComFormulario = (evento) => {
+            evento.preventDefault()
+
+            let emailValor = email.value
+            let senhaValor = senha.value
+
+            console.log(`Email: ${emailValor}`)
+            console.log(`Senha: ${senhaValor}`)
+        }
+        
+        form.addEventListener('submit', lidarComFormulario)
+    </script>
+</body>
+</html>

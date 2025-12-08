@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><title>Exercício 3.2</title></head>
+<body>
+    <script>
+        const departamentos = [
+            { nome: "Vendas", localizacao: "SP", funcionarios: [
+                { nome: "João", nivel: 2, salario: 4500 },
+                { nome: "Maria", nivel: 4, salario: 9000 }
+            ]},
+            { nome: "Marketing", localizacao: "RJ", funcionarios: [
+                { nome: "Pedro", nivel: 1, salario: 3000 },
+                { nome: "Ana", nivel: 3, salario: 6000 }
+            ]},
+            { nome: "TI", localizacao: "SP", funcionarios: [
+                { nome: "Carlos", nivel: 5, salario: 15000 },
+                { nome: "Sofia", nivel: 3, salario: 7500 }
+            ]}
+        ];
+
+        const salariosAltosSP = departamentos
+                                    .filter(({ localizacao }) => localizacao === 'SP')
+                                    .flatMap(({ funcionarios }) => funcionarios)
+                                    .filter(({ salario }) => salario > 5000)
+                                    .map(({ nome, salario }) => `${nome} ganha R$ ${salario.toFixed(2)}`)
+        
+        console.log(salariosAltosSP);
+    </script>
+</body>
+</html>

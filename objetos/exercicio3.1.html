@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><title>Exercício 3.1</title></head>
+<body>
+    <script>
+        const produtos = [
+            { nome: "Notebook Pro", categoria: "Tecnologia", preco: 5500.00, emEstoque: true },
+            { nome: "Mouse sem Fio", categoria: "Tecnologia", preco: 80.00, emEstoque: true },
+            { nome: "Caneca Mágica", categoria: "Decoração", preco: 25.00, emEstoque: false },
+            { nome: "Monitor Ultra", categoria: "Tecnologia", preco: 1200.00, emEstoque: true },
+            { nome: "Tapete Geométrico", categoria: "Decoração", preco: 150.00, emEstoque: true }
+        ];
+
+        const nomesDosProdutosEmOferta = produtos
+                                            .filter(({ categoria, preco }) => categoria === "Tecnologia" && preco >= 1000)
+                                            .map(({ nome }) => nome)
+        
+        console.log(nomesDosProdutosEmOferta);
+    </script>
+</body>
+</html>

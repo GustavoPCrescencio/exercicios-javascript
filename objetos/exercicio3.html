@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><title>Exercício 3</title></head>
+<body>
+    <script>
+        const usuarios = [
+            { id: 1, nome: "Ana", idade: 19 },
+            { id: 2, nome: "Bruno", idade: 35 },
+            { id: 3, nome: "Carla", idade: 42 },
+            { id: 4, nome: "Daniel", idade: 22 }
+        ];
+        
+        const nomesFiltrados = usuarios
+                                    .filter(({ idade }) => idade > 25)
+                                    .map(({ nome }) => nome)
+
+        console.log(nomesFiltrados)
+    </script>
+</body>
+</html>

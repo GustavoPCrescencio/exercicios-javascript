@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><title>Exercício 3.5</title></head>
+<body>
+    <script>
+        const vendasAnuais = [
+            { produto: "Camisa", categoria: "Vestuário", valor: 50.00 },
+            { produto: "Tênis Esportivo", categoria: "Calçados", valor: 250.00 },
+            { produto: "Calça Jeans", categoria: "Vestuário", valor: 120.00 },
+            { produto: "Bota de Couro", categoria: "Calçados", valor: 350.00 },
+            { produto: "Vestido", categoria: "Vestuário", valor: 180.00 },
+            { produto: "Sandália", categoria: "Calçados", valor: 90.00 },
+            { produto: "Meia", categoria: "Vestuário", valor: 15.00 }
+        ];
+
+        const totalPorCategoria = vendasAnuais.reduce((acc, produto) => {
+            if(acc[produto.categoria]) {
+                acc[produto.categoria] = acc[produto.categoria] + produto.valor
+            } else {
+                acc[produto.categoria] = produto.valor
+            }
+
+            return acc
+        }, {})
+
+        console.log(totalPorCategoria);
+    </script>
+</body>
+</html>
