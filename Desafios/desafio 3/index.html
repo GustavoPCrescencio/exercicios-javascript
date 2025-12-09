@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <input type="number" id="valor-base" placeholder="Digite o valor aqui...">
+    <input type="number" id="taxa-conversao" placeholder="Digite a taxa aqui...">
+
+    <select name="" id="opcao">
+        <option value="BRL">BRL -> USD</option>
+        <option value="USD">USD -> BRL</option>
+    </select>
+
+    <h1 id="resultado">Resultado: R$ 0.00</h1>
+
+    <script>
+        const resultado = document.querySelector('#resultado')
+        const taxaConversao = document.querySelector('#taxa-conversao')
+        const opcao = document.querySelector('#opcao')
+        const valorBase = document.querySelector('#valor-base')
+
+        const atualizacaoDeEventos = () => {
+            const taxa = parseFloat(taxaConversao.value)
+            const valor = parseFloat(valorBase.value)
+            const opcaoAtual = opcao.value
+
+            if(isNaN(valor) || isNaN(taxa) || taxa === 0) {
+                resultado.innerHTML = 'Resultado: Não é possível fazer a divisão!'
+                return
+            }
+
+            if(opcaoAtual === 'BRL') {
+                const divisao = valor / taxa
+                resultado.innerHTML = `Resultado: R$ ${divisao.toFixed(2)}`
+            } else if(opcaoAtual === 'USD'){
+                const multiplicacao = valor * taxa
+                resultado.innerHTML = `Resultado: R$ ${multiplicacao.toFixed(2)}`
+            }
+        }
+
+        taxaConversao.addEventListener('input', atualizacaoDeEventos)
+        valorBase.addEventListener('input', atualizacaoDeEventos)
+        opcao.addEventListener('change', atualizacaoDeEventos)
+
+    </script>
+</body>
+</html>
