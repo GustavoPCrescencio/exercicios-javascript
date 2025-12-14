@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Formulário</title>
+
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        #form {
+            background-color: rgb(179, 179, 246);
+            border-radius: 20px;
+            padding: 60px;
+            width: 350px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        label {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            color: white;
+
+        }
+
+        input {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            border-radius: 50px;
+            border: 0px;
+            padding: 10px;
+            outline: none;
+        }
+        
+        #botao-cadastro, #botao-cadastro:disabled {
+            padding: 10px;
+            width: 100%;
+            background-color: rgb(255, 255, 255);
+            border-radius: 50px;
+            border: 0px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            color: rgb(189, 189, 189);
+            cursor: pointer;
+        }
+
+        #botao-cadastro {
+            background-color: rgb(104, 109, 179);
+            color: white;
+            font-size: 15px;
+        }
+
+        #botao-cadastro:hover {
+            background-color: rgb(65, 158, 62);
+        }
+
+        .sucesso {
+            border: 1px solid rgb(100, 222, 96);
+        }
+
+        .erro {
+            border: 1px solid rgb(210, 63, 63);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="formulario" id="form">
+            <label for="email">Email</label>
+            <input type="email" id="email">
+            
+            <label for="senha">Senha</label>
+            <input type="password" id="senha">
+            
+            <label for="confirmacao-senha">Confirmação de Senha</label>
+            <input type="password" id="confirmacao-senha">
+            
+            <button type="submit" id="botao-cadastro">Cadastrar-se</button>
+        </div>
+    </form>
+
+    <script>
+        const email = document.querySelector('#email')
+        const senha = document.querySelector('#senha')
+        const confirmacaoSenha = document.querySelector('#confirmacao-senha')
+        const botao = document.querySelector('#botao-cadastro')
+        const form = document.querySelector('#form')
+
+        let emailValido = false
+        let senhaValida = false
+        let confirmacaoSenhaValida = false
+
+        const checarBotao = () => {
+            if (emailValido && senhaValida && confirmacaoSenhaValida) {
+                botao.removeAttribute('disabled')
+                console.log('Botão habilitado')
+            } else {
+                botao.setAttribute('disabled', true)
+                console.log('Botão desabilitado')
+                console.log('email = ' + emailValido)
+                console.log('senha = ' + senhaValida)
+                console.log('confirmação de senha = ' + confirmacaoSenhaValida)
+            }
+        }
+
+        const validar = (elemento) => {
+            const inputElemento = elemento.value
+
+            if (!inputElemento) {
+                elemento.classList.add('erro')
+            } else {
+                elemento.classList.remove('erro')
+                elemento.classList.add('sucesso')
+            }
+        }
+
+        const validarEmail = () => {
+            validar(email)
+
+            const regexEmail = /^\S+@\S+\.\S+$/
+
+            if (!regexEmail.test(email.value)) {
+                console.log('Email em formato incorreto!')
+                emailValido = false
+            } else {
+                console.log('Email validado!')
+                emailValido = true
+            }
+            checarBotao()
+        }
+
+        const validarSenha = () => {
+            validar(senha)
+            validar(confirmacaoSenha)
+
+            const inputSenha = senha.value
+            const inputConfirmacaoSenha = confirmacaoSenha.value
+                        
+            if (inputSenha.length < 8) {
+                senhaValida = false
+                console.log('Senha com menos de 8 caracteres!')
+            } else {
+                senhaValida = true
+                console.log('Senha validada!')
+            }
+
+            if (inputSenha === inputConfirmacaoSenha) {
+                senhaValida = true
+                confirmacaoSenhaValida = true
+                console.log('Senhas batem!')
+            } else {
+                senhaValida = false
+                confirmacaoSenhaValida = false
+                console.log('Senhas não batem!')
+            }
+            checarBotao()
+        }
+        email.addEventListener('input', validarEmail)
+        senha.addEventListener('input', validarSenha)
+        confirmacaoSenha.addEventListener('input', validarSenha)
+    </script>
+</body>
+
+</html>
