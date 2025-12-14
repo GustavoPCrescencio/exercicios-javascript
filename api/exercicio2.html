@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <input type="number" id="valor-base" placeholder="Digite o valor aqui...">
+
+    <select name="" id="opcao">
+        <option value="BRL">BRL -> USD</option>
+        <option value="USD">USD -> BRL</option>
+    </select>
+
+    <h1 id="resultado">Resultado: R$ 0.00</h1>
+
+    <script>
+        
+        const buscarTaxas = async () => {
+            try {
+                const res = await fetch('https://open.er-api.com/v6/latest/USD')
+                const data = await res.json()
+                const taxaDolarParaReal = data.rates.BRL
+                return taxaDolarParaReal
+
+            } catch (err) {
+
+            }
+        }
+
+        const resultado = document.querySelector('#resultado')
+        const opcao = document.querySelector('#opcao')
+        const valorBase = document.querySelector('#valor-base')
+
+        const atualizacaoDeEventos = async () => {
+            const taxa = await buscarTaxas()
+            const valor = parseFloat(valorBase.value)
+            const opcaoAtual = opcao.value
+
+            if(isNaN(valor)) {
+                resultado.innerHTML = 'Resultado: Não é possível fazer a divisão!'
+                return
+            } 
+
+            if(opcaoAtual === 'BRL') {
+                const divisao = valor / taxa
+                resultado.innerHTML = `Resultado: R$ ${divisao.toFixed(2)}`
+                
+            } else if(opcaoAtual === 'USD'){
+                const multiplicacao = valor * taxa
+                resultado.innerHTML = `Resultado: R$ ${multiplicacao.toFixed(2)}`
+            }
+        }
+
+        valorBase.addEventListener('input', atualizacaoDeEventos)
+        opcao.addEventListener('change', atualizacaoDeEventos)
+
+    </script>
+</body>
+</html>
