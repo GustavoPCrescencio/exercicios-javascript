@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 1</title>
+</head>
+
+<body>
+    <h1></h1>
+    <ul id="lista-posts"></ul>
+
+    <script>
+        const lista = document.querySelector('#lista-posts')
+
+        const buscarPosts = async () => {
+            try {
+                const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+                const posts = await res.json()
+                let limite = 0;
+
+                posts.forEach(post => {
+                    if(limite < 5) {
+                        const novoPost = document.createElement('li')
+                        
+                        novoPost.textContent = post.title
+                        lista.appendChild(novoPost)
+                        
+                        console.log(novoPost)
+                        limite += 1
+                    }
+                })
+
+            } catch (err) {
+                console.error("Erro na API: ", err)
+            }
+        }
+
+        buscarPosts()
+    </script>
+</body>
+</html>
