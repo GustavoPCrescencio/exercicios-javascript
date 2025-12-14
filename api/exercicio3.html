@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Fatos Aleatórios de Gatos</title>
+</head>
+<body>
+    <h1>Clique no botão para carregar um fato de gato!</h1>
+    <h2 id="fatos-gato"></h2>
+    <p id="status-carregamento"></p>
+    <button id="botao-buscar">Clique aqui</button>
+
+    <script>
+        const fatosGato = document.querySelector('#fatos-gato')
+        const statusCarregamento = document.querySelector('#status-carregamento')
+        const botaoBuscar = document.querySelector('#botao-buscar')
+
+        const buscarFato = async () => {
+            statusCarregamento.textContent = 'Carregando...'
+            fatosGato.textContent = ""
+            
+            try {
+                const res = await fetch('https://catfact.ninja/fact')
+                const dado = await res.json()
+                const fato = dado.fact
+                
+                fatosGato.textContent = fato
+                statusCarregamento.textContent = 'Carregado!'
+            } catch(err) {
+                statusCarregamento.textContent = 'Erro ao carregar o fato!'
+                console.error("Erro na API: ", err)
+            }
+        }
+
+        botaoBuscar.addEventListener('click', buscarFato)
+    </script>
+</body>
+</html>
