@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Web</title>
+</head>
+<body>
+    <h1 id="nome-usuario">Nome Usuário</h1>
+    <p id="email-usuario">Email</p>
+    <p id="status-usuario">Status - Sem Busca</p>
+
+    <button id="botao-usuario-1">Buscar Perfil 1</button>
+    <button id="botao-usuario-2">Buscar Perfil 2</button>
+    <button id="botao-limpar-cache">Limpar Cache</button>
+
+    <script>
+        const nomeUsuario = document.querySelector('#nome-usuario')
+        const emailUsuario = document.querySelector('#email-usuario')
+        const statusUsuario = document.querySelector('#status-usuario')
+        const botaoUsuario1 = document.querySelector('#botao-usuario-1')
+        const botaoUsuario2 = document.querySelector('#botao-usuario-2')
+        const botaoLimparCache = document.querySelector('#botao-limpar-cache')
+
+        const renderizarPerfil = (usuario, origem) => {
+            nomeUsuario.textContent = usuario.name
+            emailUsuario.textContent = usuario.email
+            statusUsuario.textContent = `Origem: ${origem}`
+        }
+
+        const buscarPerfil = async (userId) => {
+            const chave = `perfil-${userId}`
+            statusUsuario.textContent = 'Status - Carregando...'
+            
+            try {
+                // Cache
+                const dadoDoCache = localStorage.getItem(chave)
+
+                if(dadoDoCache) {
+                    const usuario = JSON.parse(dadoDoCache)
+
+                    renderizarPerfil(usuario, 'CACHE')
+                    return
+                }
+
+                // API 
+                const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+
+                if(!res.ok) {
+                    throw new Error(`Falha HTTP ao buscar usuário ${userId}`)
+                }
+
+                const usuario = await res.json()
+                
+                nomeUsuario.textContent = usuario.name
+                emailUsuario.textContent = usuario.email
+                
+                statusUsuario.textContent = 'Status - Informações Carregadas!'
+
+                renderizarPerfil(usuario, 'API')
+            } catch(err) {
+                console.error('Erro na API: ', err)
+            }
+        }
+
+        const limparCache = () => {
+            localStorage.clear()
+            statusUsuario.textContent = 'Status - Cache Limpo! As próximas buscas usarão a API.'
+            nomeUsuario.textContent = 'N/D'
+            emailUsuario.textContent = 'N/D'
+        }
+
+        botaoUsuario1.addEventListener('click', () => buscarPerfil(1))
+        botaoUsuario2.addEventListener('click', () => buscarPerfil(2))
+        botaoLimparCache.addEventListener('click', limparCache)
+    </script>
+</body>
+</html>
