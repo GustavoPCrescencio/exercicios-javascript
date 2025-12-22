@@ -40,29 +40,31 @@
                     const usuario = JSON.parse(dadoDoCache)
 
                     renderizarPerfil(usuario, 'CACHE')
+                    console.log('Dado resgatado pelo cache!')
                     return
                 }
-
+                
                 // API 
                 const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-
+                
                 if(!res.ok) {
                     throw new Error(`Falha HTTP ao buscar usuário ${userId}`)
                 }
-
+                
                 const usuario = await res.json()
                 
                 nomeUsuario.textContent = usuario.name
                 emailUsuario.textContent = usuario.email
                 
                 statusUsuario.textContent = 'Status - Informações Carregadas!'
-
+                
                 renderizarPerfil(usuario, 'API')
+                console.log('Dado resgatado pela API!')
             } catch(err) {
                 console.error('Erro na API: ', err)
             }
         }
-
+        
         const limparCache = () => {
             localStorage.clear()
             statusUsuario.textContent = 'Status - Cache Limpo! As próximas buscas usarão a API.'

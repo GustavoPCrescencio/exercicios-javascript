@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício Sobre Cache</title>
+</head>
+<body>
+    <h1>Nome de Usuário</h1>
+    <h2 id="nome-usuario"></h2>
+
+    <h1>Email</h1>
+    <p id="email-usuario"></p>
+
+    <h1>Status Cache</h1>
+    <p id="status-cache"></p>
+
+    <button id="botao-busca-perfil-1">Buscar Perfil 1</button>
+    <button id="botao-busca-perfil-2">Buscar Perfil 2</button>
+    <button id="botao-limpa-cache">Limpar Cache</button>
+    
+    <script>
+        const nomeUsuario = document.querySelector('#nome-usuario')
+        const emailUsuario = document.querySelector('#email-usuario')
+        const statusCache = document.querySelector('#status-cache')
+        const botaoBuscaPerfilUm = document.querySelector('#botao-busca-perfil-1')
+        const botaoBuscaPerfilDois = document.querySelector('#botao-busca-perfil-2')
+        const botaoLimpaCache = document.querySelector('#botao-limpa-cache')
+
+        const renderizarPerfil = (usuario, origem) => {
+            nomeUsuario.textContent = usuario.title
+            emailUsuario.textContent = `${usuario.title}@gmail.com`
+            statusCache.textContent = `Origem: ${origem}`
+        }
+
+        const buscarPerfil = async (userId) => {
+            const chave = `perfil-${userId}`
+            statusCache.textContent = 'Buscando...'
+            const dadoCache = localStorage.getItem(chave)
+            
+            if(dadoCache) {
+                const pacote = JSON.parse(dadoCache)
+
+                const idadeEmSegundos = (Date.now() - pacote.horaCriacao) / 1000
+                
+                if(idadeEmSegundos < 10) {   
+                    console.log(`Este usuário foi criado há ${idadeEmSegundos.toFixed(1)} segundos.`)
+                    renderizarPerfil(pacote.dados, 'CACHE')
+                    return
+                } else {
+                    console.log(`Cache expirado! Ultrapassou 10 segundos. Horário: ${idadeEmSegundos.toFixed(1)}`)
+                }
+            }
+            
+            try {
+                const url = `https://jsonplaceholder.typicode.com/todos/${userId}`
+                const res = await fetch(url)
+                
+                if(!res.ok) {
+                    throw new Error(`Falha ao buscar o usuário ${userId}`)
+                }
+                
+                const usuario = await res.json()
+                
+                const pacote = {
+                    dados: usuario,
+                    horaCriacao: Date.now()
+                }
+
+                const dadosString = JSON.stringify(pacote)
+                localStorage.setItem(chave, dadosString)
+                
+                renderizarPerfil(usuario, 'API')
+            } catch (err) {
+                console.error(`Erro na API: ${err}`)
+            }
+        }
+
+        const limparCache = () => {
+            localStorage.clear()
+
+            nomeUsuario.textContent = 'N/D'
+            emailUsuario.textContent = 'N/D'
+            statusCache.textContent = 'Cache Limpo!'
+            console.log('Cache limpo!')
+        }
+
+        botaoBuscaPerfilUm.addEventListener('click', () => buscarPerfil(1))
+        botaoBuscaPerfilDois.addEventListener('click', () => buscarPerfil(2))
+        botaoLimpaCache.addEventListener('click', () => limparCache())
+    </script>
+</body>
+</html>
