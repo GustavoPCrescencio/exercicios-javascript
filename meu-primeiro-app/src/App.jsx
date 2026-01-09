@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import ItemTarefa from './Components/ItemTarefa'
 
 function App() {
 
@@ -57,24 +58,16 @@ function App() {
         onKeyDown={(e) => { e.key === 'Enter' && adicionarItem()} /* Isto escrito é = if(e.key === 'Enter') { adicionarItem() } */ }  
       />
 
-      <button onClick={ adicionarItem }>Adicionar Item</button>
-
       <ul>
-        { lista.map((item, index) => (
-          <li key={index}>
-
-          <span
-            onClick={ () => alterarConcluido(index) }
-            style={{ 
-              textDecoration: item.concluido ? 'line-through' : 'none', 
-              cursor: 'pointer'
-            }}
-          >
-            {item.tarefa}
-          </span>
-            <button onClick={ () => removerItem(index) } style={{ color: 'red',  marginLeft: '30px', }} >X</button>
-          </li>
-        )) }
+        {lista.map((item, index) => (
+          <ItemTarefa
+            key={item.id}
+            item={item}
+            index={index}
+            aoAlternar={alterarConcluido}
+            aoRemover={removerItem}
+          />
+        ))}
       </ul>
     </>
   )
