@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Favoritar Perfis</title>
+</head>
+<body>
+    <h3>Nome do Usuário</h3>
+    <p id="nome-usuario"></p>
+
+    <h3>Email do Usuário</h3>
+    <p id="email-usuario"></p>
+
+    <h3>Status</h3>
+    <p id="status-cache"></p>
+
+    <button id="botao-usuario-um">Usuário Um</button>
+    <button id="botao-usuario-dois">Usuário Dois</button>
+    <button id="botao-usuario-tres">Usuário Três</button>
+    <button id="botao-usuario-quatro">Usuário Quatro</button>
+    <button id="botao-favoritos">Favoritar</button>
+    <button id="botao-limpa-cache">Limpar Cache</button>
+    
+    <ul id="lista-favoritos"></ul>
+
+    <script>
+        const nomeUsuario = document.querySelector('#nome-usuario')
+        const emailUsuario = document.querySelector('#email-usuario')
+        const statusCache = document.querySelector('#status-cache')
+        const botaoUsuarioUm = document.querySelector('#botao-usuario-um')
+        const botaoUsuarioDois = document.querySelector('#botao-usuario-dois')
+        const botaoUsuarioTres = document.querySelector('#botao-usuario-tres')
+        const botaoUsuarioQuatro = document.querySelector('#botao-usuario-quatro')
+        const botaoFavoritos = document.querySelector('#botao-favoritos')
+        const botaoLimpaCache = document.querySelector('#botao-limpa-cache')
+
+        const renderizarUsuarios = (usuario, destino) => {
+            nomeUsuario.textContent = usuario.title
+            emailUsuario.textContent = `${usuario.title}@gmail.com`
+            statusCache.textContent = destino
+        } 
+
+        const buscarUsuario = async (userId) => {
+            const url = `https://jsonplaceholder.typicode.com/todos/${userId}`
+
+            const res = await fetch(url)
+
+            
+            if(!res.ok) {
+                throw new Error('Erro ao buscar!')
+            }
+            
+            const dados = await res.json() 
+            const dadosString = JSON.stringify(dados)
+            const dadosCache = JSON.parse(dadosString)
+
+            console.log(typeof(dados))
+            console.log(typeof(dadosString))
+            console.log(typeof(dadosCache))
+            
+            
+            // localStorage.setItem('chave', 'valor') // Salva o valor
+            // localStorage.getItem('chave') // Lê o valor
+        }
+
+        botaoUsuarioUm.addEventListener('click', () => buscarUsuario(1))
+    </script>
+</body>
+</html>

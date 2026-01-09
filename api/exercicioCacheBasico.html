@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício Básico Cache</title>
+</head>
+<body>
+    <label for="input-nome">Nome</label>
+    <input id="input-nome" type="text" placeholder="Digite seu nome...">
+    <h1 id="nome"></h1>
+    <h2 id="status"></h2>
+
+    <button id="botao-salvar-nome">Salvar Nome</button>
+    <button id="botao-lc">Limpar Cache</button>
+
+    <script>
+        const inputNome = document.querySelector('#input-nome')
+        const nome = document.querySelector('#nome')
+        const status = document.querySelector('#status')
+        const botaoLC = document.querySelector('#botao-lc')
+        const botaoSalvarNome = document.querySelector('#botao-salvar-nome')
+        
+        const ultimaChaveUsada = 'usuario-nome'
+        const nomeSalvoNoCache = localStorage.getItem(ultimaChaveUsada)
+
+        if(nomeSalvoNoCache) {
+            nome.textContent = nomeSalvoNoCache
+            status.textContent = 'Lembrei de você! (Cache)'
+        }
+
+        const salvarUsuario = () => {
+            const nomeSalvo = inputNome.value
+            const chave = `usuario-${nomeSalvo}` // Segura
+            const usuarioCache = localStorage.getItem(ultimaChaveUsada)
+
+            if(usuarioCache) {
+                nome.textContent = usuarioCache
+                status.textContent = 'Cache'
+                return
+            }
+            nome.textContent = nomeSalvo
+            localStorage.setItem(ultimaChaveUsada, nomeSalvo)
+            status.textContent = 'Novo'
+        }
+
+        const limparUsuario = () => {
+            localStorage.clear()
+            nome.textContent = ""
+            status.textContent = ""
+        }
+
+        botaoSalvarNome.addEventListener('click', () => salvarUsuario())
+        botaoLC.addEventListener('click', () => limparUsuario())
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVO</title>
+</head>
+<body>
+    <input type="text" id="texto">
+    <button id="botao-remover-texto">Clicar</button>
+
+    <script>
+        const texto = document.querySelector('#texto')
+        const botaoRemoverAcento = document.querySelector('#botao-remover-texto')
+
+        const removerAcento = () => {
+            const textoSemAcento = texto.value
+                                        .normalize('NFD')
+                                        .replace(/[\u0300-\u036f]/g, "")
+
+            console.log(textoSemAcento)
+            return textoSemAcento
+        }
+
+        console.log(typeof(removerAcento()))
+
+        botaoRemoverAcento.addEventListener('click', () => removerAcento())
+    </script>
+</body>
+</html>
